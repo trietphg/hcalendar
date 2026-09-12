@@ -3,91 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HCAlendar - Trả lại TKB bạn xứng đáng được hiểu :)))</title>
+  <title>HCalendar - Trả lại TKB bạn xứng đáng được hiểu :)))</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    body {
+      background-color: #CCE1F3;
+      background-image: radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.6) 0, transparent 50%), 
+                        radial-gradient(at 100% 100%, rgba(186, 215, 242, 0.8) 0, transparent 50%);
+      background-attachment: fixed;
+    }
+    /* Hiệu ứng Liquid Glass */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.68);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    }
+    .glass-inner {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
     .cell-min { min-height: 125px; }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 font-sans relative">
+<body class="text-slate-800 min-h-screen p-3 md:p-6 font-sans relative">
   <div class="max-w-7xl mx-auto space-y-6">
-    <!-- Tiêu đề -->
-    <div class="text-center space-y-1">
-      <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">HCalendar</h1>
-      <p class="text-xs md:text-sm text-slate-500 font-medium">Đồng bộ thời khóa biểu trực quan cho điện thoại & máy tính 📅</p>
+    
+    <!-- Tiêu đề chính căn giữa -->
+    <div class="text-center py-4">
+      <h1 class="text-2xl md:text-3xl font-extrabold text-blue-900 tracking-tight drop-shadow-sm">
+        HCalendar - Trả lại TKB bạn xứng đáng được hiểu :)))
+      </h1>
+      <p class="text-xs md:text-sm text-blue-800/80 mt-1 font-medium">Chuyển đổi thời khóa biểu (theo kỳ hoặc theo tuần) sang Google Calendar & Apple Calendar 📅</p>
     </div>
 
-    <!-- Hướng dẫn sử dụng & Tiện ích Bookmarklet -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-5 space-y-4">
+    <!-- Hướng dẫn sử dụng trực quan -->
+    <div class="glass-card rounded-2xl p-5 md:p-6 space-y-4">
       <div class="flex items-center gap-2">
-        <span class="text-lg">💡</span>
-        <h2 class="font-bold text-slate-800 text-sm md:text-base">Cách lấy lịch trên Điện thoại không cần quét bôi đen</h2>
+        <span class="text-xl">💡</span>
+        <h2 class="font-bold text-slate-800 text-sm md:text-base">Hướng dẫn lấy lịch và đồng bộ cực nhanh</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
-        <!-- Bookmarklet Tool -->
-        <div class="bg-amber-50/80 border border-amber-200 rounded-lg p-3.5 space-y-2">
-          <div class="flex items-center gap-1.5 font-bold text-amber-900">
-            <span>⚡ Mẹo 1 chạm (Khuyên dùng trên Điện thoại)</span>
+        <!-- Hướng dẫn Điện thoại -->
+        <div class="glass-inner rounded-xl p-4 space-y-2.5">
+          <div class="flex items-center gap-1.5 font-bold text-blue-950">
+            <span>📱 Dành cho Điện thoại (iPhone / Android)</span>
           </div>
-          <p class="text-slate-700 leading-relaxed">
-            Lưu đoạn mã bên dưới thành một <strong>Dấu trang (Bookmark)</strong> trên trình duyệt. Khi đang ở trang thời khóa biểu trường, chỉ cần mở Dấu trang này lên là lịch sẽ <strong>tự động chuyển sang HCAlendar</strong>!
-          </p>
-          <div class="bg-white p-2 rounded border border-amber-300 font-mono text-[11px] text-slate-600 break-all select-all">
-            javascript:(function(){let c='';document.querySelectorAll('table').forEach(t=>c+=t.innerText+'\n');if(!c.trim())c=document.body.innerText;window.open('https://trietphg.github.io/hcalendar/?data='+encodeURIComponent(c),'_blank');})();
-          </div>
-          <p class="text-[11px] text-amber-800 italic">*Chạm vào ô mã trên để sao chép, sau đó tạo Bookmark mới và dán vào phần Địa chỉ (URL).*</p>
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-700 leading-relaxed">
+            <li>Vào web trường, mở trang thời khóa biểu (theo kỳ hoặc theo tuần).</li>
+            <li>Chạm đè vào màn hình → Chọn <strong>"Chọn tất cả" (Select All)</strong> → Bấm <strong>Sao chép</strong> (Copy cả trang thoải mái, web tự lọc rác).</li>
+            <li>Dán vào ô bên dưới, bấm <strong>"Phân tích & Vẽ lịch"</strong>.</li>
+            <li>Bấm nút xanh lá <strong>"Thêm cả kỳ vào Lịch Điện Thoại"</strong> → Bấm <strong>Thêm tất cả</strong> là xong!</li>
+          </ol>
         </div>
 
-        <!-- Hướng dẫn Laptop / Máy tính -->
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3.5 space-y-2">
+        <!-- Hướng dẫn Laptop / PC -->
+        <div class="glass-inner rounded-xl p-4 space-y-2.5">
           <div class="flex items-center gap-1.5 font-bold text-slate-900">
             <span>💻 Dành cho Laptop / Máy tính</span>
           </div>
           <div class="space-y-2 text-slate-700">
             <div>
               <p class="font-semibold text-slate-800">• Cách 1: Thêm nhanh từng môn</p>
-              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút <strong>📅 + Google Calendar</strong> trên từng ô môn học → Tab Google Calendar tự mở kèm chu kỳ lặp cả kỳ → Bấm <strong>Lưu</strong>.</p>
+              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Dán lịch vào web → Bấm <strong>📅 + Google Calendar</strong> ngay trên từng ô môn học → Bấm <strong>Lưu</strong>.</p>
             </div>
             <div>
-              <p class="font-semibold text-slate-800">• Cách 2: Thêm toàn bộ cả kỳ học</p>
-              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm <strong>"Tải file cả kỳ & Tự mở Google Calendar"</strong> → Kéo file vừa tải thả vào trang Google Calendar vừa bật lên → Bấm <strong>Nhập</strong>.</p>
+              <p class="font-semibold text-slate-800">• Cách 2: Thêm toàn bộ vào lịch</p>
+              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút xanh <strong>"Tải file cả kỳ & Tự mở Google Calendar"</strong> → Kéo file vừa tải thả vào trang Google Calendar vừa hiện lên → Bấm <strong>Nhập</strong>.</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Tùy chọn Bookmarklet phụ -->
+      <details class="text-xs text-slate-600 pt-1">
+        <summary class="cursor-pointer font-semibold text-blue-700 hover:underline">⚡ Tùy chọn nhanh bằng Bookmark (cho bạn nào thích 1-chạm):</summary>
+        <div class="mt-2 p-2.5 bg-white/60 rounded-lg border border-white font-mono text-[11px] break-all select-all text-slate-700">
+          javascript:(function(){let c='';document.querySelectorAll('table').forEach(t=>c+=t.innerText+'\n');if(!c.trim())c=document.body.innerText;window.open('https://trietphg.github.io/hcalendar/?data='+encodeURIComponent(c),'_blank');})();
+        </div>
+      </details>
     </div>
 
     <!-- Khối nhập liệu -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-5 space-y-3">
+    <div class="glass-card rounded-2xl p-5 md:p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <label class="font-semibold text-slate-700 text-sm">Hoặc dán bảng lịch học thủ công vào đây:</label>
-        <span class="text-xs text-slate-400">Dán bảng hoặc dán toàn bộ trang web</span>
+        <label class="font-bold text-slate-800 text-sm">Dán thời khóa biểu (theo kỳ hoặc theo tuần) vào đây:</label>
+        <span class="text-xs text-slate-500">Hỗ trợ dán cả trang web hoặc bảng dính chữ</span>
       </div>
-      <textarea id="rawInput" rows="5" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Dán nội dung thời khóa biểu vào đây..."></textarea>
+      <textarea id="rawInput" rows="5" class="w-full bg-white/70 border border-white/80 rounded-xl p-3 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono transition" placeholder="Chạm giữ để dán nội dung thời khóa biểu vào đây..."></textarea>
       
-      <div class="flex flex-wrap items-center gap-3">
-        <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm">
+      <div class="flex flex-wrap items-center gap-3 pt-1">
+        <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl transition text-xs md:text-sm shadow-md shadow-blue-500/20">
           🔍 Phân tích & Vẽ lịch
         </button>
-        <button id="syncActionBtn" onclick="handleSmartSync()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm flex items-center gap-1.5">
-          <!-- Text do JS khởi tạo -->
+        <button id="syncActionBtn" onclick="handleSmartSync()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-xl transition text-xs md:text-sm shadow-md shadow-emerald-500/20 flex items-center gap-1.5">
+          <!-- JS khởi tạo -->
         </button>
       </div>
     </div>
 
     <!-- Khung bảng lịch theo tuần -->
-    <div id="resultContainer" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
+    <div id="resultContainer" class="hidden glass-card rounded-2xl p-4 md:p-6 space-y-4">
       <!-- Thanh công cụ chuyển tuần -->
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-inner p-3 rounded-xl">
         <div class="flex items-center gap-2">
-          <button onclick="prevWeek()" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-100 rounded text-xs font-semibold shadow-sm transition">
+          <button onclick="prevWeek()" class="px-3 py-1.5 bg-white/80 hover:bg-white border border-slate-200 rounded-lg text-xs font-semibold shadow-xs transition">
             ◀ Tuần trước
           </button>
-          <button onclick="currentWeek()" class="px-3 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 rounded text-xs font-semibold shadow-sm transition">
-            Tuần đầu kỳ
+          <button onclick="currentWeek()" class="px-3 py-1.5 bg-blue-100/90 border border-blue-200 text-blue-800 hover:bg-blue-200 rounded-lg text-xs font-semibold shadow-xs transition">
+            Về tuần gốc
           </button>
-          <button onclick="nextWeek()" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-100 rounded text-xs font-semibold shadow-sm transition">
+          <button onclick="nextWeek()" class="px-3 py-1.5 bg-white/80 hover:bg-white border border-slate-200 rounded-lg text-xs font-semibold shadow-xs transition">
             Tuần sau ▶
           </button>
         </div>
@@ -98,64 +127,64 @@
         <div class="flex items-center gap-3 text-xs font-medium text-slate-600">
           <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-100 border border-emerald-400 inline-block"></span> Thực hành</span>
           <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-100 border border-sky-400 inline-block"></span> Online</span>
-          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-100 border border-slate-300 inline-block"></span> Lý thuyết</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-white/90 border border-slate-300 inline-block"></span> Lý thuyết</span>
         </div>
       </div>
 
       <!-- Bảng Ma Trận Grid -->
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-slate-200 text-xs md:text-sm min-w-[950px]">
+      <div class="overflow-x-auto rounded-xl border border-white/60 shadow-xs">
+        <table class="w-full border-collapse bg-white/60 text-xs md:text-sm min-w-[950px]">
           <thead>
-            <tr class="bg-slate-50 text-blue-900 border-b border-slate-200 font-bold text-center">
-              <th class="p-2.5 border border-slate-200 w-24 bg-slate-100">Ca học</th>
-              <th id="th-2" class="p-2.5 border border-slate-200">Thứ 2</th>
-              <th id="th-3" class="p-2.5 border border-slate-200">Thứ 3</th>
-              <th id="th-4" class="p-2.5 border border-slate-200">Thứ 4</th>
-              <th id="th-5" class="p-2.5 border border-slate-200">Thứ 5</th>
-              <th id="th-6" class="p-2.5 border border-slate-200">Thứ 6</th>
-              <th id="th-7" class="p-2.5 border border-slate-200">Thứ 7</th>
-              <th id="th-CN" class="p-2.5 border border-slate-200">Chủ nhật</th>
+            <tr class="bg-blue-50/70 text-blue-900 border-b border-slate-200/80 font-bold text-center">
+              <th class="p-2.5 border border-slate-200/80 w-24 bg-blue-100/50">Ca học</th>
+              <th id="th-2" class="p-2.5 border border-slate-200/80">Thứ 2</th>
+              <th id="th-3" class="p-2.5 border border-slate-200/80">Thứ 3</th>
+              <th id="th-4" class="p-2.5 border border-slate-200/80">Thứ 4</th>
+              <th id="th-5" class="p-2.5 border border-slate-200/80">Thứ 5</th>
+              <th id="th-6" class="p-2.5 border border-slate-200/80">Thứ 6</th>
+              <th id="th-7" class="p-2.5 border border-slate-200/80">Thứ 7</th>
+              <th id="th-CN" class="p-2.5 border border-slate-200/80">Chủ nhật</th>
             </tr>
           </thead>
           <tbody>
             <!-- Sáng -->
             <tr>
-              <td class="p-2 border border-slate-200 text-center font-bold bg-amber-50/70 text-amber-900">
+              <td class="p-2 border border-slate-200/80 text-center font-bold bg-amber-50/60 text-amber-900">
                 Sáng<br><span class="text-[10px] font-normal text-slate-500">Tiết 1 - 5</span>
               </td>
-              <td id="cell-2-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-3-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-4-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-5-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-6-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-7-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-CN-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-2-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-3-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-4-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-5-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-6-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-7-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-sang" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
             </tr>
             <!-- Chiều -->
             <tr>
-              <td class="p-2 border border-slate-200 text-center font-bold bg-amber-50/70 text-amber-900">
+              <td class="p-2 border border-slate-200/80 text-center font-bold bg-amber-50/60 text-amber-900">
                 Chiều<br><span class="text-[10px] font-normal text-slate-500">Tiết 6 - 10</span>
               </td>
-              <td id="cell-2-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-3-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-4-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-5-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-6-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-7-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-CN-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-2-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-3-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-4-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-5-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-6-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-7-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-chieu" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
             </tr>
             <!-- Tối -->
             <tr>
-              <td class="p-2 border border-slate-200 text-center font-bold bg-amber-50/70 text-amber-900">
+              <td class="p-2 border border-slate-200/80 text-center font-bold bg-amber-50/60 text-amber-900">
                 Tối<br><span class="text-[10px] font-normal text-slate-500">Tiết 11 - 15</span>
               </td>
-              <td id="cell-2-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-3-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-4-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-5-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-6-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-7-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
-              <td id="cell-CN-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-2-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-3-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-4-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-5-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-6-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-7-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-toi" class="p-1.5 border border-slate-200/80 align-top cell-min space-y-2"></td>
             </tr>
           </tbody>
         </table>
@@ -163,31 +192,31 @@
     </div>
 
     <!-- Khối Donate Admin -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 md:p-6 text-center max-w-xl mx-auto space-y-4">
+    <div class="glass-card rounded-2xl p-5 md:p-6 text-center max-w-xl mx-auto space-y-4">
       <div class="space-y-1">
         <h3 class="font-bold text-slate-800 text-base md:text-lg">Ủng hộ tác giả (Donate) ☕</h3>
-        <p class="text-xs text-slate-500">Nếu bạn thấy công cụ hữu ích, có thể mời mình một ly cà phê để duy trì và phát triển dự án nhé!</p>
+        <p class="text-xs text-slate-600">Nếu bạn thấy công cụ hữu ích, có thể mời mình một ly cà phê để duy trì và phát triển dự án nhé!</p>
       </div>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-5 pt-2">
         <!-- QR Code -->
-        <div class="w-40 h-40 border border-slate-200 rounded-lg p-1 bg-white shadow-xs flex items-center justify-center overflow-hidden">
-          <img src="qrmoi.jpg" alt="Mã QR chuyển khoản" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<div class=\'text-xs text-slate-400 p-2\'>Chưa tải file qrmoi.jpg lên</div>'">
+        <div class="w-40 h-40 border border-white rounded-xl p-1 bg-white/90 shadow-sm flex items-center justify-center overflow-hidden">
+          <img src="qr.jpg" alt="Mã QR chuyển khoản" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<div class=\'text-xs text-slate-400 p-2\'>Chưa tải file qr.jpg lên</div>'">
         </div>
 
         <!-- Thông tin chi tiết -->
         <div class="text-left text-xs md:text-sm space-y-2 font-medium text-slate-700">
           <div class="flex items-center gap-2">
-            <span class="text-slate-400 text-xs w-24">Ngân hàng:</span>
-            <span class="font-semibold text-blue-700">VietinBank</span>
+            <span class="text-slate-500 text-xs w-24">Ngân hàng:</span>
+            <span class="font-bold text-blue-800">VietinBank</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-slate-400 text-xs w-24">Số tài khoản:</span>
-            <span class="font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">100882719919</span>
+            <span class="text-slate-500 text-xs w-24">Số tài khoản:</span>
+            <span class="font-mono font-bold text-slate-900 bg-white/90 px-2 py-0.5 rounded-md border border-slate-300">100882719919</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-slate-400 text-xs w-24">Chủ tài khoản:</span>
-            <span class="font-bold text-slate-800">PHẠM GIA TRIẾT</span>
+            <span class="text-slate-500 text-xs w-24">Chủ tài khoản:</span>
+            <span class="font-bold text-slate-900">PHẠM GIA TRIẾT</span>
           </div>
         </div>
       </div>
@@ -195,7 +224,7 @@
   </div>
 
   <!-- Nút Back to Top -->
-  <button id="backToTopBtn" onclick="scrollToTop()" class="hidden fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none" title="Về đầu trang">
+  <button id="backToTopBtn" onclick="scrollToTop()" class="hidden fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg shadow-blue-600/30 transition-all transform hover:scale-110 focus:outline-none" title="Về đầu trang">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
     </svg>
@@ -222,7 +251,6 @@
         btn.innerHTML = `📥 Tải file cả kỳ & Tự mở Google Calendar`;
       }
 
-      // TỰ ĐỘNG BÓC TÁCH KHI MỞ QUA BOOKMARKLET (?data=...)
       const urlParams = new URLSearchParams(window.location.search);
       const passedData = urlParams.get('data');
       if (passedData) {
@@ -298,36 +326,55 @@
       if (!text.trim()) return alert("Vui lòng dán dữ liệu thời khóa biểu vào ô trống trước!");
 
       allCourses = [];
-      const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+      let detectedStartMonday = null;
 
-      // Thử bóc tách dạng từng dòng (theo tuần)
-      lines.forEach(line => {
-        if (line.includes("Thứ") && line.includes("Tiết")) return;
-        if (line.includes("STT") && line.includes("Tên học phần")) return;
+      // 1. Kiểm tra xem có dòng tiêu đề tuần kèm ngày tháng không: vd [Từ 28/09/2026 -- Đến 04/10/2026]
+      const weekRangeMatch = text.match(/\[Từ\s*(\d{2}\/\d{2}\/\d{4})\s*--?\s*Đến\s*(\d{2}\/\d{2}\/\d{4})\]/i);
+      let weekStart = null;
+      let weekEnd = null;
 
-        const weeklyRegex = /^([2-7]|CN)?\s*(\d{1,2}\s*-\s*\d{1,2})\s+(\d+)\s+(.+?)\s+([0-9_]+)\s+(LT|TH)?\s*(Online\s*\d*|Hội trường\s*[^\s]+|Tin học\s*[^\s]+|[A-Za-z0-9-]+)\s+(.+)$/i;
-        const wMatch = line.match(weeklyRegex);
+      if (weekRangeMatch) {
+        weekStart = parseDMY(weekRangeMatch[1]);
+        weekEnd = parseDMY(weekRangeMatch[2]);
+        detectedStartMonday = getMonday(weekStart);
+      } else {
+        const todayMon = getMonday(new Date());
+        weekStart = new Date(todayMon);
+        weekEnd = new Date(todayMon);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        detectedStartMonday = todayMon;
+      }
 
-        if (wMatch) {
-          let day = wMatch[1];
-          if (!day && allCourses.length > 0) {
-            day = allCourses[allCourses.length - 1].dayOfWeek;
-          }
-          const now = new Date();
-          allCourses.push({
-            subject: wMatch[4].trim(),
-            classCode: wMatch[5],
-            startDate: new Date(now.getFullYear(), now.getMonth(), 1),
-            endDate: new Date(now.getFullYear(), now.getMonth() + 4, 30),
-            dayOfWeek: day || "2",
-            session: wMatch[2].replace(/\s+/g, ""),
-            room: wMatch[7].trim(),
-            teacher: wMatch[8].trim()
-          });
+      // 2. Bóc tách dạng BẢNG THEO TUẦN (Kể cả chuỗi dính liền như 31 - 5000108Luật thuế0126000108_1LT...)
+      // Quy tắc nhận diện: Thứ (tuỳ chọn) -> Tiết (X - Y) -> Mã môn (6 số) -> Tên môn -> Mã lớp (dạng số_số) -> Loại -> Phòng -> Giảng viên
+      const weeklyContinuousRegex = /([2-7]|CN)?\s*(\d{1,2}\s*-\s*\d{1,2})\s*(\d{6})\s*([A-ZÀ-Ỹa-zà-ỹ0-9\s]+?)\s*([0-9_]{8,16})\s*(LT|TH)?\s*(Online\s*\d*|Hội trường\s*[A-Za-z0-9-]+|Tin học\s*[A-Za-z0-9-]+|[A-Za-z0-9-]+)\s*([A-ZÀ-Ỹ][a-zà-ỹ]+(?:\s+[A-ZÀ-Ỹ][a-zà-ỹ]+){1,4})/g;
+      
+      let wMatch;
+      let lastDay = "2";
+
+      while ((wMatch = weeklyContinuousRegex.exec(text)) !== null) {
+        let day = wMatch[1];
+        if (day) {
+          lastDay = day;
+        } else {
+          day = lastDay; // Nếu dòng không có thứ thì kế thừa từ môn liền trước (gộp cell)
         }
-      });
 
-      // Thử bóc tách dạng theo kỳ
+        allCourses.push({
+          dayOfWeek: day,
+          session: wMatch[2].replace(/\s+/g, ""),
+          code: wMatch[3],
+          subject: wMatch[4].trim(),
+          classCode: wMatch[5],
+          type: wMatch[6] || "LT",
+          room: wMatch[7].trim(),
+          teacher: wMatch[8].trim(),
+          startDate: new Date(weekStart),
+          endDate: new Date(weekEnd)
+        });
+      }
+
+      // 3. Nếu chưa parse được, thử bóc tách theo dạng BẢNG THEO KỲ
       if (allCourses.length === 0) {
         const blockPattern = /(\d+)\s+([^\d\n]+?)\s*(\d+)\s+([0-9_]+)([\s\S]*?)(?=(?:\n\s*\d+\s+[^\d\n]+\s*\d+\s+[0-9_]+)|$)/g;
         let match;
@@ -362,21 +409,21 @@
       }
 
       if (allCourses.length === 0) {
-        return alert("Chưa nhận diện được bảng lịch. Hãy kiểm tra lại nội dung!");
+        return alert("Chưa nhận diện được bảng lịch. Bạn hãy thử copy lại toàn bộ bảng hoặc toàn bộ trang web nhé!");
       }
 
+      // Xác định tuần hiển thị ban đầu
       let minDate = allCourses[0].startDate;
       allCourses.forEach(c => {
         if (c.startDate < minDate) minDate = c.startDate;
       });
 
-      semesterStartMonday = getMonday(minDate);
+      semesterStartMonday = detectedStartMonday || getMonday(minDate);
       currentMonday = new Date(semesterStartMonday);
 
       document.getElementById("resultContainer").classList.remove("hidden");
       renderWeek();
       
-      // Tự cuộn mượt xuống phần lịch sau khi phân tích xong
       document.getElementById("resultContainer").scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -417,17 +464,17 @@
         const targetCell = document.getElementById(`cell-${item.dayOfWeek}-${shift}`);
         if (!targetCell) return;
 
-        let styleBadge = "bg-slate-100 border-slate-300 text-slate-800";
+        let styleBadge = "bg-white/80 border-slate-200 text-slate-800";
         if (item.subject.toLowerCase().includes("tin học")) {
-          styleBadge = "bg-emerald-100 border-emerald-400 text-emerald-900";
+          styleBadge = "bg-emerald-100/90 border-emerald-300 text-emerald-950";
         } else if (item.room.toLowerCase().includes("online")) {
-          styleBadge = "bg-sky-100 border-sky-400 text-sky-900";
+          styleBadge = "bg-sky-100/90 border-sky-300 text-sky-950";
         }
 
         const gCalUrl = makeGoogleCalendarUrl(item);
 
         const tag = document.createElement("div");
-        tag.className = `p-2 rounded-lg border text-left shadow-sm transition hover:shadow ${styleBadge}`;
+        tag.className = `p-2.5 rounded-xl border text-left shadow-xs transition hover:shadow-md hover:scale-[1.01] ${styleBadge}`;
         tag.innerHTML = `
           <div class="font-bold leading-tight text-xs mb-1 text-slate-900">${item.subject}</div>
           <div class="text-[10px] opacity-75 font-mono mb-1">${item.classCode}</div>
@@ -437,7 +484,7 @@
             <div><strong>GV:</strong> ${item.teacher}</div>
           </div>
           <div class="mt-2 pt-1.5 border-t border-black/10">
-            <a href="${gCalUrl}" target="_blank" class="text-[10px] bg-white/90 hover:bg-white text-blue-700 font-semibold px-2 py-1 rounded border border-blue-300 transition inline-flex items-center gap-1 shadow-xs">
+            <a href="${gCalUrl}" target="_blank" class="text-[10px] bg-white/90 hover:bg-white text-blue-700 font-semibold px-2 py-1 rounded-lg border border-blue-200 transition inline-flex items-center gap-1 shadow-xs">
               📅 + Google Calendar
             </a>
           </div>
