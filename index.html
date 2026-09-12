@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HCAlendar - Trả lại TKB bạn xứng đáng ĐƯỢC HIỂU :)))</title>
+  <title>HCalendar - Thời Khóa Biểu Sinh Viên</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .cell-min { min-height: 125px; }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 font-sans">
+<body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 font-sans relative">
   <div class="max-w-7xl mx-auto space-y-6">
     <!-- Tiêu đề -->
     <div class="text-center space-y-1">
-      <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">HCAlendar - Trả lại TKB bạn xứng đáng ĐƯỢC HIỂU :)))</h1>
+      <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">HCalendar</h1>
       <p class="text-xs md:text-sm text-slate-500 font-medium">Đồng bộ thời khóa biểu trực quan cho điện thoại & máy tính 📅</p>
     </div>
 
@@ -33,7 +33,7 @@
           <ol class="list-decimal list-inside space-y-1.5 text-slate-700 leading-relaxed">
             <li>Dán lịch học vào ô và bấm <strong>Phân tích & Vẽ lịch</strong>.</li>
             <li>Bấm nút xanh lá <strong>"Thêm cả kỳ vào Lịch Điện Thoại"</strong>.</li>
-            <li>Màn hình bật pop-up xác nhận $\rightarrow$ Chọn <strong>Thêm tất cả</strong> (Add all) là xong toàn bộ kỳ học, tự động có thông báo nhắc giờ học.</li>
+            <li>Màn hình bật pop-up xác nhận → Chọn <strong>Thêm tất cả</strong> (Add all) là xong toàn bộ kỳ học, tự động có thông báo nhắc giờ học.</li>
           </ol>
         </div>
 
@@ -45,11 +45,11 @@
           <div class="space-y-2 text-slate-700">
             <div>
               <p class="font-semibold text-slate-800">• Cách 1: Thêm nhanh từng môn</p>
-              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút <strong>📅 + Google Calendar</strong> ngay trên thẻ của môn học đó $\rightarrow$ Trình duyệt tự mở Google Calendar kèm lịch lặp cả kỳ $\rightarrow$ Bấm <strong>Lưu</strong>.</p>
+              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút <strong>📅 + Google Calendar</strong> ngay trên từng ô môn học → Trình duyệt tự mở Google Calendar kèm lịch lặp cả kỳ → Bấm <strong>Lưu</strong>.</p>
             </div>
             <div>
               <p class="font-semibold text-slate-800">• Cách 2: Thêm toàn bộ cả kỳ học</p>
-              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút xanh lá <strong>"Tải file cả kỳ & Tự mở Google Calendar"</strong> $\rightarrow$ Web tự tải file và tự mở trang Nhập lịch $\rightarrow$ Kéo file vừa tải thả vào và bấm <strong>Nhập</strong>.</p>
+              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút xanh lá <strong>"Tải file cả kỳ & Tự mở Google Calendar"</strong> → Web tự tải file và tự mở trang Nhập lịch → Kéo file vừa tải thả vào và bấm <strong>Nhập</strong>.</p>
             </div>
           </div>
         </div>
@@ -59,17 +59,17 @@
     <!-- Khối nhập liệu -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-5 space-y-3">
       <div class="flex items-center justify-between">
-        <label class="font-semibold text-slate-700 text-sm">Dán thời khóa biểu (theo kỳ) vào đây:</label>
-        <span class="text-xs text-slate-400">Ctrl + A rồi Ctrl + C ở bảng web trường</span>
+        <label class="font-semibold text-slate-700 text-sm">Dán thời khóa biểu (theo kỳ hoặc theo tuần) vào đây:</label>
+        <span class="text-xs text-slate-400">Bôi đen toàn bộ bảng ở web trường rồi dán vào</span>
       </div>
-      <textarea id="rawInput" rows="4" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Dán toàn bộ bảng thời khóa biểu vào đây..."></textarea>
+      <textarea id="rawInput" rows="5" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Dán nội dung bảng thời khóa biểu vào đây..."></textarea>
       
       <div class="flex flex-wrap items-center gap-3">
         <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm">
-          Phân tích & Vẽ lịch
+          🔍 Phân tích & Vẽ lịch
         </button>
-        <button id="syncActionBtn" onclick="handleSmartSync()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm flex items-center gap-1.5">
-          <!-- Nội dung do JS render -->
+        <button id="syncActionBtn" onclick="handleSmartSync()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm flex items-center gap-1.5">
+          <!-- Text do JS khởi tạo -->
         </button>
       </div>
     </div>
@@ -159,7 +159,45 @@
         </table>
       </div>
     </div>
+
+    <!-- Khối Donate Admin -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 md:p-6 text-center max-w-xl mx-auto space-y-4">
+      <div class="space-y-1">
+        <h3 class="font-bold text-slate-800 text-base md:text-lg">Ủng hộ tác giả (Donate) ☕</h3>
+        <p class="text-xs text-slate-500">Nếu bạn thấy công cụ hữu ích, có thể mời mình một ly cà phê để duy trì và phát triển dự án nhé!</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 pt-2">
+        <!-- QR Code -->
+        <div class="w-40 h-40 border border-slate-200 rounded-lg p-1 bg-white shadow-xs flex items-center justify-center overflow-hidden">
+          <img src="qr.jpg" alt="Mã QR chuyển khoản" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<div class=\'text-xs text-slate-400 p-2\'>Chưa tải file qr.jpg lên</div>'">
+        </div>
+
+        <!-- Thông tin chi tiết -->
+        <div class="text-left text-xs md:text-sm space-y-2 font-medium text-slate-700">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 text-xs w-24">Ngân hàng:</span>
+            <span class="font-semibold text-blue-700">VietinBank</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 text-xs w-24">Số tài khoản:</span>
+            <span class="font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">100882719919</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 text-xs w-24">Chủ tài khoản:</span>
+            <span class="font-bold text-slate-800">PHẠM GIA TRIẾT</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Nút Back to Top -->
+  <button id="backToTopBtn" onclick="scrollToTop()" class="hidden fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none" title="Về đầu trang">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
 
   <script>
     const LESSON_HOURS = {
@@ -173,6 +211,29 @@
     let semesterStartMonday = null;
 
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("syncActionBtn");
+      if (isMobile) {
+        btn.innerHTML = `📲 Thêm cả kỳ vào Lịch Điện Thoại`;
+      } else {
+        btn.innerHTML = `📥 Tải file cả kỳ & Tự mở Google Calendar`;
+      }
+    });
+
+    // Xử lý hiển thị nút Back to Top khi cuộn trang
+    window.addEventListener("scroll", () => {
+      const topBtn = document.getElementById("backToTopBtn");
+      if (window.scrollY > 300) {
+        topBtn.classList.remove("hidden");
+      } else {
+        topBtn.classList.add("hidden");
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     function parseDMY(str) {
       const [d, m, y] = str.split("/").map(Number);
@@ -225,37 +286,67 @@
 
     function processData() {
       const text = document.getElementById("rawInput").value;
-      if (!text.trim()) return alert("Vui lòng dán dữ liệu lịch học!");
+      if (!text.trim()) return alert("Vui lòng dán dữ liệu thời khóa biểu vào ô trống trước!");
 
       allCourses = [];
-      const blockPattern = /(\d+)\s+([^\d\n]+?)\s*(\d+)\s+([0-9_]+)([\s\S]*?)(?=(?:\n\s*\d+\s+[^\d\n]+\s*\d+\s+[0-9_]+)|$)/g;
-      let match;
+      const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
 
-      while ((match = blockPattern.exec(text)) !== null) {
-        const subjectName = match[2].trim();
-        const classCode = match[4].trim();
-        const detailsChunk = match[5].trim();
+      lines.forEach(line => {
+        if (line.includes("Thứ") && line.includes("Tiết")) return;
+        if (line.includes("STT") && line.includes("Tên học phần")) return;
 
-        const dateRegex = /(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}\/\d{2}\/\d{4})/g;
-        const dates = [...detailsChunk.matchAll(dateRegex)];
-        const dayMatches = detailsChunk.match(/\b([2-7]|CN)\b/g) || [];
-        const sessionMatches = detailsChunk.match(/\b(\d{1,2}\s*-\s*\d{1,2})\b/g) || [];
-        const rooms = detailsChunk.match(/(Hội trường\s*[^\n\r]+|Tin học\s*[^\n\r]+|Online\s*\d*|[A-Z]\d+-\d+)/gi) || [];
-        const teachers = detailsChunk.match(/(?:Đinh Thị Trang|Nguyễn Thị Lan Đan|Phạm Thúy Hằng|Nguyễn Thị Kim Tuyền|Phan Trần Điền|Trịnh Duy Biên|[A-ZÀ-Ỹ][a-zà-ỹ]+(?:\s+[A-ZÀ-Ỹ][a-zà-ỹ]+){1,3})/g) || [];
+        const weeklyRegex = /^([2-7]|CN)?\s*(\d{1,2}\s*-\s*\d{1,2})\s+(\d+)\s+(.+?)\s+([0-9_]+)\s+(LT|TH)?\s*(Online\s*\d*|Hội trường\s*[^\s]+|Tin học\s*[^\s]+|[A-Za-z0-9-]+)\s+(.+)$/i;
+        const wMatch = line.match(weeklyRegex);
 
-        const count = dates.length || 1;
-        for (let i = 0; i < count; i++) {
-          const d = dates[i];
+        if (wMatch) {
+          let day = wMatch[1];
+          if (!day && allCourses.length > 0) {
+            day = allCourses[allCourses.length - 1].dayOfWeek;
+          }
+          const now = new Date();
           allCourses.push({
-            subject: subjectName,
-            classCode: classCode,
-            startDate: d ? parseDMY(d[1]) : new Date(2026, 7, 31),
-            endDate: d ? parseDMY(d[2]) : new Date(2027, 0, 15),
-            dayOfWeek: dayMatches[i] || dayMatches[0] || "2",
-            session: (sessionMatches[i] || sessionMatches[0] || "1-5").replace(/\s+/g, ""),
-            room: rooms[i] ? rooms[i].trim() : (rooms[0] || "Chưa rõ"),
-            teacher: teachers[i] ? teachers[i].trim() : (teachers[0] || "Giảng viên bộ môn")
+            subject: wMatch[4].trim(),
+            classCode: wMatch[5],
+            startDate: new Date(now.getFullYear(), now.getMonth(), 1),
+            endDate: new Date(now.getFullYear(), now.getMonth() + 4, 30),
+            dayOfWeek: day || "2",
+            session: wMatch[2].replace(/\s+/g, ""),
+            room: wMatch[7].trim(),
+            teacher: wMatch[8].trim()
           });
+        }
+      });
+
+      if (allCourses.length === 0) {
+        const blockPattern = /(\d+)\s+([^\d\n]+?)\s*(\d+)\s+([0-9_]+)([\s\S]*?)(?=(?:\n\s*\d+\s+[^\d\n]+\s*\d+\s+[0-9_]+)|$)/g;
+        let match;
+
+        while ((match = blockPattern.exec(text)) !== null) {
+          const subjectName = match[2].trim();
+          const classCode = match[4].trim();
+          const detailsChunk = match[5].trim();
+
+          const dateRegex = /(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}\/\d{2}\/\d{4})/g;
+          const dates = [...detailsChunk.matchAll(dateRegex)];
+          const dayMatches = detailsChunk.match(/\b([2-7]|CN)\b/g) || [];
+          const sessionMatches = detailsChunk.match(/\b(\d{1,2}\s*-\s*\d{1,2})\b/g) || [];
+          const rooms = detailsChunk.match(/(Hội trường\s*[^\n\r]+|Tin học\s*[^\n\r]+|Online\s*\d*|[A-Z]\d+-\d+)/gi) || [];
+          const teachers = detailsChunk.match(/(?:Đinh Thị Trang|Nguyễn Thị Lan Đan|Phạm Thúy Hằng|Nguyễn Thị Kim Tuyền|Phan Trần Điền|Trịnh Duy Biên|[A-ZÀ-Ỹ][a-zà-ỹ]+(?:\s+[A-ZÀ-Ỹ][a-zà-ỹ]+){1,3})/g) || [];
+
+          const count = dates.length || 1;
+          for (let i = 0; i < count; i++) {
+            const d = dates[i];
+            allCourses.push({
+              subject: subjectName,
+              classCode: classCode,
+              startDate: d ? parseDMY(d[1]) : new Date(2026, 7, 31),
+              endDate: d ? parseDMY(d[2]) : new Date(2027, 0, 15),
+              dayOfWeek: dayMatches[i] || dayMatches[0] || "2",
+              session: (sessionMatches[i] || sessionMatches[0] || "1-5").replace(/\s+/g, ""),
+              room: rooms[i] ? rooms[i].trim() : (rooms[0] || "Chưa rõ"),
+              teacher: teachers[i] ? teachers[i].trim() : (teachers[0] || "Giảng viên bộ môn")
+            });
+          }
         }
       }
 
@@ -271,15 +362,7 @@
       semesterStartMonday = getMonday(minDate);
       currentMonday = new Date(semesterStartMonday);
 
-      const btn = document.getElementById("syncActionBtn");
-      if (isMobile) {
-        btn.innerHTML = `📲 Thêm cả kỳ vào Lịch Điện Thoại (1 chạm)`;
-      } else {
-        btn.innerHTML = `📥 Tải file cả kỳ & Tự mở Google Calendar`;
-      }
-      btn.classList.remove("hidden");
       document.getElementById("resultContainer").classList.remove("hidden");
-
       renderWeek();
     }
 
@@ -339,8 +422,8 @@
             <div><strong>Phòng:</strong> ${item.room}</div>
             <div><strong>GV:</strong> ${item.teacher}</div>
           </div>
-          <div class="mt-2 pt-1 border-t border-black/10 flex justify-between items-center">
-            <a href="${gCalUrl}" target="_blank" class="text-[10px] bg-white/80 hover:bg-white text-blue-700 font-semibold px-2 py-0.5 rounded border border-blue-300 transition inline-flex items-center gap-1">
+          <div class="mt-2 pt-1.5 border-t border-black/10">
+            <a href="${gCalUrl}" target="_blank" class="text-[10px] bg-white/90 hover:bg-white text-blue-700 font-semibold px-2 py-1 rounded border border-blue-300 transition inline-flex items-center gap-1 shadow-xs">
               📅 + Google Calendar
             </a>
           </div>
@@ -368,7 +451,9 @@
     }
 
     function handleSmartSync() {
-      if (allCourses.length === 0) return;
+      if (allCourses.length === 0) {
+        return alert("Vui lòng dán lịch và bấm nút 'Phân tích & Vẽ lịch' trước khi xuất dữ liệu!");
+      }
 
       exportICSFile();
 
