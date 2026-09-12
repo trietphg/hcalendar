@@ -3,39 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HCalendar - Thời Khóa Biểu Sinh Viên</title>
+  <title>HCAlendar - Trả lại TKB bạn xứng đáng ĐƯỢC HIỂU :)))</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .cell-min { min-height: 120px; }
+    .cell-min { min-height: 125px; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 font-sans">
-  <div class="max-w-7xl mx-auto space-y-5">
+  <div class="max-w-7xl mx-auto space-y-6">
     <!-- Tiêu đề -->
     <div class="text-center space-y-1">
       <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">HCalendar</h1>
-      <p class="text-xs md:text-sm text-slate-500 font-medium">Xem thời khóa biểu theo từng tuần trực quan 📅</p>
+      <p class="text-xs md:text-sm text-slate-500 font-medium">Đồng bộ thời khóa biểu trực quan cho điện thoại & máy tính 📅</p>
+    </div>
+
+    <!-- Hướng dẫn sử dụng nhanh -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-lg">💡</span>
+        <h2 class="font-bold text-slate-800 text-sm md:text-base">Hướng dẫn đồng bộ lịch học (Google Calendar / Apple Calendar)</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+        <!-- Hướng dẫn Điện thoại -->
+        <div class="bg-blue-50/70 border border-blue-100 rounded-lg p-3.5 space-y-2">
+          <div class="flex items-center gap-1.5 font-bold text-blue-900">
+            <span>📱 Dành cho Điện thoại (iPhone / Android)</span>
+          </div>
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-700 leading-relaxed">
+            <li>Dán lịch học vào ô và bấm <strong>Phân tích & Vẽ lịch</strong>.</li>
+            <li>Bấm nút xanh lá <strong>"Thêm cả kỳ vào Lịch Điện Thoại"</strong>.</li>
+            <li>Màn hình bật pop-up xác nhận $\rightarrow$ Chọn <strong>Thêm tất cả</strong> (Add all) là xong toàn bộ kỳ học, tự động có thông báo nhắc giờ học.</li>
+          </ol>
+        </div>
+
+        <!-- Hướng dẫn Laptop / PC -->
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3.5 space-y-2">
+          <div class="flex items-center gap-1.5 font-bold text-slate-900">
+            <span>💻 Dành cho Laptop / Máy tính</span>
+          </div>
+          <div class="space-y-2 text-slate-700">
+            <div>
+              <p class="font-semibold text-slate-800">• Cách 1: Thêm nhanh từng môn</p>
+              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút <strong>📅 + Google Calendar</strong> ngay trên thẻ của môn học đó $\rightarrow$ Trình duyệt tự mở Google Calendar kèm lịch lặp cả kỳ $\rightarrow$ Bấm <strong>Lưu</strong>.</p>
+            </div>
+            <div>
+              <p class="font-semibold text-slate-800">• Cách 2: Thêm toàn bộ cả kỳ học</p>
+              <p class="text-[11px] md:text-xs text-slate-600 pl-3">Bấm nút xanh lá <strong>"Tải file cả kỳ & Tự mở Google Calendar"</strong> $\rightarrow$ Web tự tải file và tự mở trang Nhập lịch $\rightarrow$ Kéo file vừa tải thả vào và bấm <strong>Nhập</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Khối nhập liệu -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 space-y-3">
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-5 space-y-3">
       <div class="flex items-center justify-between">
-        <label class="font-semibold text-slate-700 text-sm">Dán lịch học (theo kỳ) vào đây:</label>
-        <span class="text-xs text-slate-400">Ctrl + A rồi Ctrl + C từ trang thời khóa biểu trường</span>
+        <label class="font-semibold text-slate-700 text-sm">Dán thời khóa biểu (theo kỳ) vào đây:</label>
+        <span class="text-xs text-slate-400">Ctrl + A rồi Ctrl + C ở bảng web trường</span>
       </div>
-      <textarea id="rawInput" rows="4" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Dán bảng thời khóa biểu vào đây..."></textarea>
+      <textarea id="rawInput" rows="4" class="w-full border border-slate-300 rounded-lg p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Dán toàn bộ bảng thời khóa biểu vào đây..."></textarea>
       
       <div class="flex flex-wrap items-center gap-3">
-        <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition text-xs md:text-sm shadow-sm">
-          Phân tích & Tạo lịch
+        <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm">
+          Phân tích & Vẽ lịch
         </button>
-        <button id="downloadBtn" onclick="exportICS()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg transition text-xs md:text-sm shadow-sm">
-          📥 Tải file .ics cho Google Calendar
+        <button id="syncActionBtn" onclick="handleSmartSync()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-xs md:text-sm shadow-sm flex items-center gap-1.5">
+          <!-- Nội dung do JS render -->
         </button>
       </div>
     </div>
 
-    <!-- Khung hiển thị Lịch theo tuần -->
+    <!-- Khung bảng lịch theo tuần -->
     <div id="resultContainer" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
       <!-- Thanh công cụ chuyển tuần -->
       <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
@@ -53,7 +92,7 @@
 
         <div id="currentWeekRange" class="text-sm font-bold text-slate-800 text-center"></div>
 
-        <!-- Chú thích màu sắc -->
+        <!-- Chú thích loại môn -->
         <div class="flex items-center gap-3 text-xs font-medium text-slate-600">
           <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-100 border border-emerald-400 inline-block"></span> Thực hành</span>
           <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-100 border border-sky-400 inline-block"></span> Online</span>
@@ -63,7 +102,7 @@
 
       <!-- Bảng Ma Trận Grid -->
       <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-slate-200 text-xs md:text-sm min-w-[900px]">
+        <table class="w-full border-collapse border border-slate-200 text-xs md:text-sm min-w-[950px]">
           <thead>
             <tr class="bg-slate-50 text-blue-900 border-b border-slate-200 font-bold text-center">
               <th class="p-2.5 border border-slate-200 w-24 bg-slate-100">Ca học</th>
@@ -82,39 +121,39 @@
               <td class="p-2 border border-slate-200 text-center font-bold bg-amber-50/70 text-amber-900">
                 Sáng<br><span class="text-[10px] font-normal text-slate-500">Tiết 1 - 5</span>
               </td>
-              <td id="cell-2-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-3-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-4-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-5-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-6-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-7-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-CN-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
+              <td id="cell-2-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-3-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-4-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-5-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-6-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-7-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-sang" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
             </tr>
             <!-- Chiều -->
             <tr>
               <td class="p-2 border border-slate-200 text-center font-bold bg-amber-50/70 text-amber-900">
                 Chiều<br><span class="text-[10px] font-normal text-slate-500">Tiết 6 - 10</span>
               </td>
-              <td id="cell-2-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-3-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-4-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-5-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-6-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-7-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-CN-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
+              <td id="cell-2-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-3-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-4-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-5-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-6-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-7-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-chieu" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
             </tr>
             <!-- Tối -->
             <tr>
               <td class="p-2 border border-slate-200 text-center font-bold bg-amber-50/70 text-amber-900">
                 Tối<br><span class="text-[10px] font-normal text-slate-500">Tiết 11 - 15</span>
               </td>
-              <td id="cell-2-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-3-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-4-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-5-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-6-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-7-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
-              <td id="cell-CN-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-1.5"></td>
+              <td id="cell-2-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-3-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-4-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-5-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-6-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-7-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-toi" class="p-1.5 border border-slate-200 align-top cell-min space-y-2"></td>
             </tr>
           </tbody>
         </table>
@@ -132,6 +171,8 @@
     let allCourses = [];
     let currentMonday = null;
     let semesterStartMonday = null;
+
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     function parseDMY(str) {
       const [d, m, y] = str.split("/").map(Number);
@@ -151,6 +192,35 @@
       const mon = new Date(date.setDate(diff));
       mon.setHours(0, 0, 0, 0);
       return mon;
+    }
+
+    function makeGoogleCalendarUrl(item) {
+      const time = LESSON_HOURS[item.session] || { start: "07:00", end: "11:30" };
+      let firstDate = new Date(item.startDate);
+      const targetDay = item.dayOfWeek === "CN" ? 0 : parseInt(item.dayOfWeek) - 1;
+      while (firstDate.getDay() !== targetDay) {
+        firstDate.setDate(firstDate.getDate() + 1);
+      }
+
+      const formatGDate = (d, timeStr) => {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        const [hh, mm] = timeStr.split(":");
+        return `${y}${m}${day}T${hh}${mm}00`;
+      };
+
+      const dtStart = formatGDate(firstDate, time.start);
+      const dtEnd = formatGDate(firstDate, time.end);
+      const until = `${item.endDate.getFullYear()}${String(item.endDate.getMonth() + 1).padStart(2, "0")}${String(item.endDate.getDate()).padStart(2, "0")}T235959Z`;
+      const dayMap = { "2": "MO", "3": "TU", "4": "WE", "5": "TH", "6": "FR", "7": "SA", "CN": "SU" };
+
+      const title = encodeURIComponent(item.subject);
+      const location = encodeURIComponent(item.room);
+      const details = encodeURIComponent(`Môn: ${item.subject}\nMã lớp: ${item.classCode}\nTiết: ${item.session}\nGV: ${item.teacher}`);
+      const recur = encodeURIComponent(`RRULE:FREQ=WEEKLY;UNTIL=${until};BYDAY=${dayMap[item.dayOfWeek] || 'MO'}`);
+
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dtStart}/${dtEnd}&details=${details}&location=${location}&recur=${recur}`;
     }
 
     function processData() {
@@ -190,10 +260,9 @@
       }
 
       if (allCourses.length === 0) {
-        return alert("Chưa nhận diện được lịch học. Hãy chắc chắn bạn đã bôi đen và copy cả bảng!");
+        return alert("Chưa nhận diện được bảng lịch. Hãy kiểm tra lại nội dung đã copy!");
       }
 
-      // Tìm ngày Thứ 2 nhỏ nhất làm mốc đầu kỳ
       let minDate = allCourses[0].startDate;
       allCourses.forEach(c => {
         if (c.startDate < minDate) minDate = c.startDate;
@@ -202,23 +271,26 @@
       semesterStartMonday = getMonday(minDate);
       currentMonday = new Date(semesterStartMonday);
 
+      const btn = document.getElementById("syncActionBtn");
+      if (isMobile) {
+        btn.innerHTML = `📲 Thêm cả kỳ vào Lịch Điện Thoại (1 chạm)`;
+      } else {
+        btn.innerHTML = `📥 Tải file cả kỳ & Tự mở Google Calendar`;
+      }
+      btn.classList.remove("hidden");
       document.getElementById("resultContainer").classList.remove("hidden");
-      document.getElementById("downloadBtn").classList.remove("hidden");
 
       renderWeek();
     }
 
     function renderWeek() {
-      // Tính ngày Chủ nhật của tuần đang chọn
       const sunday = new Date(currentMonday);
       sunday.setDate(currentMonday.getDate() + 6);
       sunday.setHours(23, 59, 59, 999);
 
-      // Cập nhật tiêu đề khoảng ngày của tuần
       document.getElementById("currentWeekRange").innerText = 
         `Tuần: ${formatDateVN(currentMonday)} - ${formatDateVN(sunday)}/${sunday.getFullYear()}`;
 
-      // Cập nhật ngày vào tiêu đề từng cột
       const days = ["2", "3", "4", "5", "6", "7", "CN"];
       days.forEach((d, idx) => {
         const dObj = new Date(currentMonday);
@@ -227,7 +299,6 @@
         th.innerHTML = `${d === "CN" ? "Chủ nhật" : "Thứ " + d}<br><span class="text-[11px] font-normal text-slate-500">${formatDateVN(dObj)}</span>`;
       });
 
-      // Dọn sạch các ô trước khi render
       const shifts = ["sang", "chieu", "toi"];
       days.forEach(d => {
         shifts.forEach(s => {
@@ -236,9 +307,7 @@
         });
       });
 
-      // Lọc các môn diễn ra trong tuần này
       const activeCourses = allCourses.filter(c => {
-        // Tuần hiện tại nằm trong khoảng [startDate, endDate] của môn
         return currentMonday <= c.endDate && sunday >= c.startDate;
       });
 
@@ -258,6 +327,8 @@
           styleBadge = "bg-sky-100 border-sky-400 text-sky-900";
         }
 
+        const gCalUrl = makeGoogleCalendarUrl(item);
+
         const tag = document.createElement("div");
         tag.className = `p-2 rounded-lg border text-left shadow-sm transition hover:shadow ${styleBadge}`;
         tag.innerHTML = `
@@ -267,6 +338,11 @@
             <div><strong>Tiết:</strong> ${item.session}</div>
             <div><strong>Phòng:</strong> ${item.room}</div>
             <div><strong>GV:</strong> ${item.teacher}</div>
+          </div>
+          <div class="mt-2 pt-1 border-t border-black/10 flex justify-between items-center">
+            <a href="${gCalUrl}" target="_blank" class="text-[10px] bg-white/80 hover:bg-white text-blue-700 font-semibold px-2 py-0.5 rounded border border-blue-300 transition inline-flex items-center gap-1">
+              📅 + Google Calendar
+            </a>
           </div>
         `;
         targetCell.appendChild(tag);
@@ -291,9 +367,20 @@
       renderWeek();
     }
 
-    function exportICS() {
+    function handleSmartSync() {
       if (allCourses.length === 0) return;
 
+      exportICSFile();
+
+      if (!isMobile) {
+        setTimeout(() => {
+          window.open("https://calendar.google.com/calendar/u/0/r/settings/export", "_blank");
+          alert("👉 Đã tải file lịch xuống thư mục máy tính!\n👉 Trình duyệt đã tự mở trang 'Cài đặt Nhập' của Google Calendar ở tab bên cạnh.\n\nBạn chỉ việc chọn file ThoiKhoaBieu_HocKy.ics vừa tải rồi nhấn 'Nhập' là xong!");
+        }, 600);
+      }
+    }
+
+    function exportICSFile() {
       let icsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -306,8 +393,6 @@
 
       allCourses.forEach((ev, i) => {
         const time = LESSON_HOURS[ev.session] || { start: "07:00", end: "11:30" };
-        const dayOffset = ev.dayOfWeek === "CN" ? 6 : parseInt(ev.dayOfWeek) - 2;
-        
         let firstClassDate = new Date(ev.startDate);
         const targetDay = ev.dayOfWeek === "CN" ? 0 : parseInt(ev.dayOfWeek) - 1;
         while (firstClassDate.getDay() !== targetDay) {
