@@ -3,54 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chuyển Đổi Thời Khóa Biểu Ra Lịch Cá Nhân</title>
+  <title>HCAlendar - Trả lại TKB bạn xứng đáng được hiểu</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .cell-min { min-height: 130px; }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen p-4 md:p-8 font-sans">
-  <div class="max-w-4xl mx-auto space-y-6">
-    <div class="text-center space-y-2">
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Công Cụ Đồng Bộ Thời Khóa Biểu</h1>
-      <p class="text-sm text-slate-500">Chuyển bảng thời khóa biểu của trường thành giao diện trực quan và file .ics cho Google Calendar</p>
+<body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6 font-sans">
+  <div class="max-w-7xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="text-center space-y-1">
+      <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">HCalendar</h1>
+      <p class="text-xs md:text-sm text-slate-500 font-medium">Vì bạn xứng đáng có một bộ lịch trực quan và thông minh 📅</p>
     </div>
 
-    <!-- Input Box -->
+    <!-- Input Card -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
-      <label class="block font-semibold text-slate-700">1. Dán bảng lịch học đã copy vào đây:</label>
-      <textarea id="rawInput" rows="7" class="w-full border border-slate-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Bôi đen toàn bộ bảng lịch học trên web trường, nhấn Ctrl+C rồi dán vào đây..."></textarea>
+      <div class="flex items-center justify-between">
+        <label class="font-semibold text-slate-700 text-sm md:text-base">Dán thời khóa biểu (theo kỳ hoặc theo tuần) vào đây:</label>
+        <span class="text-xs text-slate-400">Ctrl + A rồi Ctrl + C ở trang trường</span>
+      </div>
+      <textarea id="rawInput" rows="5" class="w-full border border-slate-300 rounded-lg p-3 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="Dán nội dung bảng thời khóa biểu vào đây..."></textarea>
       
-      <div class="flex flex-wrap gap-3">
-        <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2.5 rounded-lg transition text-sm">
-          Phân tích lịch học
+      <div class="flex flex-wrap items-center gap-3">
+        <button onclick="processData()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-sm shadow-sm">
+          Phân tích & Vẽ thời khóa biểu
         </button>
-        <button id="downloadBtn" onclick="exportICS()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2.5 rounded-lg transition text-sm">
-          Tải file .ics (Cho Google Calendar / Apple Calendar)
+        <button id="downloadBtn" onclick="exportICS()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg transition text-sm shadow-sm">
+          📥 Xuất file .ics cho Google Calendar / iPhone
         </button>
       </div>
     </div>
 
-    <!-- Kết quả hiển thị -->
-    <div id="resultContainer" class="hidden space-y-4">
-      <h2 class="font-bold text-lg text-slate-800">2. Danh sách các lớp học phát hiện được:</h2>
-      <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
-        <table class="w-full text-left text-sm border-collapse">
-          <thead class="bg-slate-100 text-slate-700 border-b border-slate-200">
-            <tr>
-              <th class="p-3">Tên học phần</th>
-              <th class="p-3">Thứ</th>
-              <th class="p-3">Tiết & Giờ</th>
-              <th class="p-3">Giai đoạn</th>
-              <th class="p-3">Phòng</th>
-              <th class="p-3">Giảng viên</th>
+    <!-- Kết quả: Ma trận Thời khóa biểu tuần -->
+    <div id="resultContainer" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 bg-blue-600 rounded-full"></span>
+          <h2 class="font-bold text-lg text-slate-800">Thời Khóa Biểu Tuần Chuẩn</h2>
+        </div>
+        
+        <!-- Chú thích màu sắc -->
+        <div class="flex flex-wrap items-center gap-3 text-xs font-medium text-slate-600">
+          <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded bg-emerald-100 border border-emerald-400 inline-block"></span> Thực hành</span>
+          <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded bg-sky-100 border border-sky-400 inline-block"></span> Trực tuyến</span>
+          <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded bg-slate-100 border border-slate-300 inline-block"></span> Lý thuyết</span>
+        </div>
+      </div>
+
+      <!-- Bảng Ma Trận Grid -->
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse border border-slate-200 text-xs md:text-sm min-w-[850px]">
+          <thead>
+            <tr class="bg-slate-50 text-blue-900 border-b border-slate-200 font-bold text-center">
+              <th class="p-3 border border-slate-200 w-24 bg-slate-100">Ca học</th>
+              <th class="p-3 border border-slate-200">Thứ 2</th>
+              <th class="p-3 border border-slate-200">Thứ 3</th>
+              <th class="p-3 border border-slate-200">Thứ 4</th>
+              <th class="p-3 border border-slate-200">Thứ 5</th>
+              <th class="p-3 border border-slate-200">Thứ 6</th>
+              <th class="p-3 border border-slate-200">Thứ 7</th>
+              <th class="p-3 border border-slate-200">Chủ nhật</th>
             </tr>
           </thead>
-          <tbody id="scheduleTableBody" class="divide-y divide-slate-100"></tbody>
+          <tbody>
+            <!-- Sáng -->
+            <tr>
+              <td class="p-3 border border-slate-200 text-center font-bold bg-amber-50 text-amber-900">
+                Sáng<br><span class="text-[11px] font-normal text-slate-500">Tiết 1 - 5</span>
+              </td>
+              <td id="cell-2-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-3-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-4-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-5-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-6-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-7-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-sang" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+            </tr>
+            <!-- Chiều -->
+            <tr>
+              <td class="p-3 border border-slate-200 text-center font-bold bg-amber-50 text-amber-900">
+                Chiều<br><span class="text-[11px] font-normal text-slate-500">Tiết 6 - 10</span>
+              </td>
+              <td id="cell-2-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-3-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-4-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-5-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-6-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-7-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-chieu" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+            </tr>
+            <!-- Tối -->
+            <tr>
+              <td class="p-3 border border-slate-200 text-center font-bold bg-amber-50 text-amber-900">
+                Tối<br><span class="text-[11px] font-normal text-slate-500">Tiết 11 - 15</span>
+              </td>
+              <td id="cell-2-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-3-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-4-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-5-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-6-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-7-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+              <td id="cell-CN-toi" class="p-2 border border-slate-200 align-top cell-min space-y-2"></td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
 
   <script>
-    // Bảng quy đổi tiết học sang giờ chuẩn (có thể điều chỉnh theo khung giờ thực tế của trường)
     const LESSON_HOURS = {
       "1-5": { start: "07:00", end: "11:30" },
       "6-10": { start: "12:30", end: "17:00" },
@@ -61,114 +123,145 @@
 
     function processData() {
       const text = document.getElementById("rawInput").value;
-      if (!text.trim()) return alert("Vui lòng dán dữ liệu vào ô trống!");
+      if (!text.trim()) return alert("Vui lòng dán nội dung thời khóa biểu vào ô trống!");
 
-      // Tách khối môn học dựa trên số thứ tự đứng trước tên môn
-      // Cấu trúc nhận diện: số STT đầu hàng theo sau là tên môn và chuỗi mã lớp tín chỉ
-      const lines = text.split(/\n+/);
-      const fullText = lines.join("\n");
-
-      // Regex nhận diện các khối dữ liệu theo dòng có chứa mã tín chỉ định dạng số_số (vd: 0126000110_2)
-      const subjectPattern = /(\d+)\s+([^\d\n]+?)\s*(\d+)\s+([0-9_]+)([\s\S]*?)(?=(?:\n\s*\d+\s+[^\d\n]+\s*\d+\s+[0-9_]+)|$)/g;
-      
       parsedEvents = [];
-      let match;
+      const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
 
-      while ((match = subjectPattern.exec(fullText)) !== null) {
-        const subjectName = match[2].trim();
-        const detailsChunk = match[5].trim();
+      lines.forEach(line => {
+        if (line.includes("Thứ") && line.includes("Tiết")) return;
+        if (line.includes("STT") && line.includes("Tên học phần")) return;
 
-        // Tách các giai đoạn thời gian: dd/mm/yyyy- dd/mm/yyyy
-        const dateRegex = /(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}\/\d{2}\/\d{4})/g;
-        const dates = [...detailsChunk.matchAll(dateRegex)];
+        // Bóc tách bảng dạng tuần: Thứ | Tiết | Mã môn | Tên môn | Mã lớp | Loại | Phòng | Giảng viên
+        const weeklyRegex = /^([2-7]|CN)?\s*(\d{1,2}\s*-\s*\d{1,2})\s+(\d+)\s+(.+?)\s+([0-9_]+)\s+(LT|TH)?\s*(Online\s*\d*|Hội trường\s*[^\s]+|Tin học\s*[^\s]+|[A-Za-z0-9-]+)\s+(.+)$/i;
+        const wMatch = line.match(weeklyRegex);
 
-        // Tách các thông tin còn lại: Thứ, Tiết (vd 6-10), Phòng, Giảng viên
-        const linesChunk = detailsChunk.split("\n").map(l => l.trim()).filter(l => l.length > 0);
-        
-        // Quét tìm thứ và tiết
-        const dayMatches = detailsChunk.match(/\b([2-7]|CN)\b/g) || [];
-        const sessionMatches = detailsChunk.match(/\b(\d{1,2}-\d{1,2})\b/g) || [];
-        
-        // Trích xuất phòng học và giảng viên
-        const rooms = detailsChunk.match(/(Hội trường [A-Za-z0-9-]+|Tin học [A-Za-z0-9-]+|Online\s*\d*|[A-Z]\d+-\d+)/g) || [];
-        
-        // Xử lý mapping cho từng khoảng thời gian
-        dates.forEach((d, idx) => {
-          const startDateStr = d[1];
-          const endDateStr = d[2];
-          const dayOfWeek = dayMatches[idx] || dayMatches[0] || "3";
-          const session = sessionMatches[idx] || sessionMatches[0] || "1-5";
-          const room = rooms[idx] || rooms[0] || "Chưa rõ";
-          
+        if (wMatch) {
+          let day = wMatch[1];
+          if (!day && parsedEvents.length > 0) {
+            day = parsedEvents[parsedEvents.length - 1].dayOfWeek;
+          }
+
           parsedEvents.push({
-            subject: subjectName,
-            startDateStr,
-            endDateStr,
-            dayOfWeek,
-            session,
-            room
+            dayOfWeek: day || "2",
+            session: wMatch[2].replace(/\s+/g, ""),
+            code: wMatch[3],
+            subject: wMatch[4].trim(),
+            classCode: wMatch[5],
+            type: wMatch[6] || "LT",
+            room: wMatch[7].trim(),
+            teacher: wMatch[8].trim()
           });
-        });
+        }
+      });
+
+      // Nếu không parse được theo dòng (do bảng theo kỳ), quét theo block regex
+      if (parsedEvents.length === 0) {
+        parseFullTermBlock(text);
       }
-
-      renderTable();
-    }
-
-    function renderTable() {
-      const tbody = document.getElementById("scheduleTableBody");
-      tbody.innerHTML = "";
 
       if (parsedEvents.length === 0) {
-        alert("Chưa đọc được dữ liệu. Hãy đảm bảo bạn copy toàn bộ bảng lịch học.");
-        return;
+        return alert("Chưa đọc được dữ liệu. Hãy kiểm tra lại bảng bạn đã copy!");
       }
 
+      renderMatrix();
+    }
+
+    function parseFullTermBlock(fullText) {
+      const subjectPattern = /(\d+)\s+([^\d\n]+?)\s*(\d+)\s+([0-9_]+)([\s\S]*?)(?=(?:\n\s*\d+\s+[^\d\n]+\s*\d+\s+[0-9_]+)|$)/g;
+      let match;
+      while ((match = subjectPattern.exec(fullText)) !== null) {
+        const subjectName = match[2].trim();
+        const classCode = match[4].trim();
+        const detailsChunk = match[5].trim();
+
+        const dayMatches = detailsChunk.match(/\b([2-7]|CN)\b/g) || [];
+        const sessionMatches = detailsChunk.match(/\b(\d{1,2}\s*-\s*\d{1,2})\b/g) || [];
+        const rooms = detailsChunk.match(/(Hội trường\s*[^\n\r]+|Tin học\s*[^\n\r]+|Online\s*\d*|[A-Z]\d+-\d+)/g) || [];
+        const teachers = detailsChunk.match(/(?:Đinh Thị Trang|Nguyễn Thị Lan Đan|Phạm Thúy Hằng|Nguyễn Thị Kim Tuyền|Phan Trần Điền|Trịnh Duy Biên|[A-ZÀ-Ỹ][a-zà-ỹ]+(?:\s+[A-ZÀ-Ỹ][a-zà-ỹ]+){1,3})/g) || [];
+
+        const count = Math.max(dayMatches.length, sessionMatches.length, 1);
+        for (let idx = 0; idx < count; idx++) {
+          parsedEvents.push({
+            subject: subjectName,
+            classCode: classCode,
+            dayOfWeek: dayMatches[idx] || dayMatches[0] || "2",
+            session: (sessionMatches[idx] || sessionMatches[0] || "1-5").replace(/\s+/g, ""),
+            type: subjectName.toLowerCase().includes("tin học") ? "TH" : "LT",
+            room: rooms[idx] ? rooms[idx].trim() : (rooms[0] || "Chưa rõ"),
+            teacher: teachers[idx] ? teachers[idx].trim() : (teachers[0] || "Giảng viên")
+          });
+        }
+      }
+    }
+
+    function renderMatrix() {
+      // Xóa các ô cũ
+      const days = ["2", "3", "4", "5", "6", "7", "CN"];
+      const shifts = ["sang", "chieu", "toi"];
+      days.forEach(d => {
+        shifts.forEach(s => {
+          const el = document.getElementById(`cell-${d}-${s}`);
+          if (el) el.innerHTML = "";
+        });
+      });
+
       parsedEvents.forEach(item => {
-        const timeInfo = LESSON_HOURS[item.session] || { start: "Bắt đầu tiết", end: "Kết thúc tiết" };
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-50 transition";
-        tr.innerHTML = `
-          <td class="p-3 font-medium text-slate-900">${item.subject}</td>
-          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-700">Thứ ${item.dayOfWeek}</span></td>
-          <td class="p-3">Tiết ${item.session} <br><span class="text-xs text-slate-400">(${timeInfo.start} - ${timeInfo.end})</span></td>
-          <td class="p-3 text-xs text-slate-600">${item.startDateStr} → ${item.endDateStr}</td>
-          <td class="p-3"><span class="font-mono text-xs bg-slate-100 px-2 py-1 rounded">${item.room}</span></td>
-          <td class="p-3 text-xs text-slate-500">Giảng viên bộ môn</td>
+        let shift = "sang";
+        const startLesson = parseInt(item.session.split("-")[0]);
+        if (startLesson >= 6 && startLesson <= 10) shift = "chieu";
+        else if (startLesson > 10) shift = "toi";
+
+        const targetCell = document.getElementById(`cell-${item.dayOfWeek}-${shift}`);
+        if (!targetCell) return;
+
+        // Định dạng màu cho từng loại môn học theo đúng chuẩn
+        let styleBadge = "bg-slate-100 border-slate-300 text-slate-800";
+        if (item.type === "TH" || item.subject.toLowerCase().includes("tin học")) {
+          styleBadge = "bg-emerald-100 border-emerald-400 text-emerald-900"; // Thực hành (xanh lá)
+        } else if (item.room.toLowerCase().includes("online")) {
+          styleBadge = "bg-sky-100 border-sky-400 text-sky-900"; // Trực tuyến (xanh dương)
+        }
+
+        const tag = document.createElement("div");
+        tag.className = `p-2.5 rounded-lg border text-left shadow-sm transition hover:shadow-md ${styleBadge}`;
+        tag.innerHTML = `
+          <div class="font-bold leading-snug mb-1">${item.subject}</div>
+          ${item.classCode ? `<div class="text-[11px] opacity-75 font-mono mb-1">${item.classCode}</div>` : ''}
+          <div class="text-[11px] space-y-0.5 opacity-90">
+            <div><strong>Tiết:</strong> ${item.session}</div>
+            <div><strong>Phòng:</strong> ${item.room}</div>
+            <div><strong>GV:</strong> ${item.teacher}</div>
+          </div>
         `;
-        tbody.appendChild(tr);
+
+        targetCell.appendChild(tag);
       });
 
       document.getElementById("resultContainer").classList.remove("hidden");
       document.getElementById("downloadBtn").classList.remove("hidden");
     }
 
-    // Hàm tạo file chuẩn .ics để nạp vào Calendar
     function exportICS() {
       if (parsedEvents.length === 0) return;
 
       let icsContent = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//SinhVien Calendar Tool//VN",
+        "PRODID:-//HCalendar//VN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH"
       ];
 
-      const dayMap = { "2": "MO", "3": "TU", "4": "WE", "5": "TH", "6": "FR", "7": "SA", "CN": "SU" };
+      const dayMap = { "2": 1, "3": 2, "4": 3, "5": 4, "6": 5, "7": 6, "CN": 0 };
+      const curr = new Date();
 
       parsedEvents.forEach((ev, i) => {
         const time = LESSON_HOURS[ev.session] || { start: "07:00", end: "11:30" };
-        const [startDay, startMonth, startYear] = ev.startDateStr.split("/").map(Number);
-        const [endDay, endMonth, endYear] = ev.endDateStr.split("/").map(Number);
-
-        // Chuyển ngày bắt đầu sang chuẩn yyyymmdd
-        const dateObj = new Date(startYear, startMonth - 1, startDay);
-        
-        // Căn chỉnh đúng thứ thực tế đầu tiên kể từ ngày bắt đầu
-        const targetDay = ev.dayOfWeek === "CN" ? 0 : parseInt(ev.dayOfWeek) - 1;
-        while (dateObj.getDay() !== targetDay) {
-          dateObj.setDate(dateObj.getDate() + 1);
-        }
+        let targetDate = new Date();
+        const targetDayIndex = dayMap[ev.dayOfWeek] !== undefined ? dayMap[ev.dayOfWeek] : 1;
+        const distance = (targetDayIndex + 7 - curr.getDay()) % 7;
+        targetDate.setDate(curr.getDate() + distance);
 
         const formatICSDate = (d, timeStr) => {
           const y = d.getFullYear();
@@ -178,28 +271,24 @@
           return `${y}${m}${day}T${hh}${mm}00`;
         };
 
-        const untilDate = `${endYear}${String(endMonth).padStart(2, "0")}${String(endDay).padStart(2, "0")}T235959Z`;
-        const dtStart = formatICSDate(dateObj, time.start);
-        const dtEnd = formatICSDate(dateObj, time.end);
-        const byDay = dayMap[ev.dayOfWeek] || "MO";
+        const dtStart = formatICSDate(targetDate, time.start);
+        const dtEnd = formatICSDate(targetDate, time.end);
 
         icsContent.push(
           "BEGIN:VEVENT",
-          `UID:${Date.now()}_${i}@sinhvien.local`,
+          `UID:${Date.now()}_${i}@hcalendar.local`,
           `DTSTAMP:${formatICSDate(new Date(), "00:00")}Z`,
           `SUMMARY:${ev.subject}`,
           `LOCATION:${ev.room}`,
-          `DESCRIPTION:Lớp: ${ev.subject} | Tiết: ${ev.session} | Phòng: ${ev.room}`,
+          `DESCRIPTION:Lớp: ${ev.classCode || ''}\\nTiết: ${ev.session}\\nPhòng: ${ev.room}\\nGV: ${ev.teacher}`,
           `DTSTART:${dtStart}`,
           `DTEND:${dtEnd}`,
-          `RRULE:FREQ=WEEKLY;UNTIL=${untilDate};BYDAY=${byDay}`,
           "END:VEVENT"
         );
       });
 
       icsContent.push("END:VCALENDAR");
 
-      // Kích hoạt tải file xuống máy
       const blob = new Blob([icsContent.join("\r\n")], { type: "text/calendar;charset=utf-8" });
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
